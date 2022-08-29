@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/professor")
@@ -22,6 +23,18 @@ public class ProfessorController {
     public ResponseEntity<List<ProfessorModel>> GetAll(){
         return ResponseEntity.ok(repository.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfessorModel> GetById (@PathVariable Long id){
+        return repository.findById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+   @GetMapping("/modalidade/{modalidade}")
+    public ResponseEntity<List<ProfessorModel>> getModalidade (@PathVariable String modalidade){
+        return ResponseEntity.ok(repository.modalidade(modalidade));
+    }
+
 
     @PostMapping
     public ResponseEntity<ProfessorModel> postProf (@RequestBody @Valid ProfessorModel professorModel) {

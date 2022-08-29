@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/treino")
-/*@CrossOrigin*/
+@CrossOrigin
 public class TreinoController {
 
     @Autowired
@@ -24,10 +24,21 @@ public class TreinoController {
         this.repository = repositorio;
     }
 
-   @GetMapping()
+   @GetMapping
     public ResponseEntity<List<TreinoModel>> getAll () {
        return ResponseEntity.ok(repository.findAll());
    }
+
+   @GetMapping("/{id}")
+   public ResponseEntity<TreinoModel> GetById (@PathVariable Long id){
+        return repository.findById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+   }
+
+    @GetMapping("/treino/{level}")
+    public ResponseEntity<List<TreinoModel>> level (@PathVariable String level){
+        return ResponseEntity.ok(repository.level(level));
+    }
 
    @PostMapping
     public ResponseEntity<TreinoModel> post (@Valid @RequestBody TreinoModel treino){
@@ -46,10 +57,5 @@ public class TreinoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
-/*   @GetMapping("/treino/{modalidade}")
-    public ResponseEntity<List<TreinoModel>> getModalidade (@PathVariable String modalidade){
-       return ResponseEntity.ok(repositorio.findAllModalidade(modalidade));
-   }*/
 
 }

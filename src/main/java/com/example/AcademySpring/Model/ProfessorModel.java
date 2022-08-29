@@ -1,9 +1,12 @@
 package com.example.AcademySpring.Model;
 
+import org.springframework.stereotype.Service;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+@Service
 @Entity
 @Table(name = "tb_professor")
 public class ProfessorModel {

@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface TreinoRepository extends JpaRepository<TreinoModel, Long> {
 
-    //List<TreinoModel> findAllModalidade(String modalidade);
+    List<TreinoModel> level (String level);
 
 }

@@ -5,6 +5,7 @@ import com.example.AcademySpring.Repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,17 @@ public class AlunoController {
 
     @Autowired
     private AlunoRepository repository;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AlunoModel> GetById (@PathVariable Long id){
+        return repository.findById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/modalidade/{lesao}")
+    public ResponseEntity<List<AlunoModel>> lesao (@PathVariable boolean lesao){
+        return ResponseEntity.ok(repository.lesao(lesao));
+    }
 
     @GetMapping
     public ResponseEntity<List<AlunoModel>> getAll(){
