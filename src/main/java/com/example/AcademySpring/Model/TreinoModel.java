@@ -1,5 +1,7 @@
 package com.example.AcademySpring.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class TreinoModel {
     private String level;
 
     @ManyToOne
+    //@JsonIgnoreProperties
     private ProfessorModel professor;
 
     @OneToOne
